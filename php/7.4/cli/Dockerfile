@@ -22,6 +22,7 @@ RUN set -eux; \
 	    freetype-dev \
 	    libpng-dev \
 	    libjpeg-turbo-dev \
+	    postgresql-dev \
 	;
 
 RUN set -eux; \
