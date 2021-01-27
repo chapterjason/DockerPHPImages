@@ -19,10 +19,10 @@ do
   cp base.template "php/$PHP_VERSION/fpm/Dockerfile"
 
   # Replace image placeholder
-  sed -i '' "s/{{ IMAGE }}/php:$PHP_VERSION-cli-alpine/" "php/$PHP_VERSION/cli/Dockerfile"
-  sed -i '' "s/{{ IMAGE }}/php:$PHP_VERSION-fpm-alpine/" "php/$PHP_VERSION/fpm/Dockerfile"
+  sed -i "s/{{ IMAGE }}/php:$PHP_VERSION-cli-alpine/" "php/$PHP_VERSION/cli/Dockerfile"
+  sed -i "s/{{ IMAGE }}/php:$PHP_VERSION-fpm-alpine/" "php/$PHP_VERSION/fpm/Dockerfile"
 
   # Replace apcu placeholder
-  sed -i '' "s/{{ APCU }}/$APCU_VERSION/" "php/$PHP_VERSION/fpm/Dockerfile"
-  sed -i '' "s/{{ APCU }}/$APCU_VERSION/" "php/$PHP_VERSION/cli/Dockerfile"
+  sed -i "s/{{ APCU }}/$APCU_VERSION/" "php/$PHP_VERSION/fpm/Dockerfile"
+  sed -i "s/{{ APCU }}/$APCU_VERSION/" "php/$PHP_VERSION/cli/Dockerfile"
 done
