@@ -61,3 +61,10 @@ RUN set -eux; \
 	apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Allow composer for all
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PATH="${PATH}:/root/.composer/vendor/bin"
