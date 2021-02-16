@@ -32,6 +32,7 @@ RUN set -eux; \
 	    zip \
 	    gd \
 	    pdo \
+	    pdo_mysql \
 	    pdo_pgsql \
 	;
 
