@@ -38,7 +38,7 @@ RUN set -eux; \
 
 RUN set -eux; \
 	pecl install \
-	    apcu-5.1.19 \
+	    apcu-5.1.20 \
 	    redis \
 	    timezonedb \
 	;

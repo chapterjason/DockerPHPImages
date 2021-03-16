@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Config
-PHP_VERSIONS=("7.4" "8.0")
+PHP_VERSIONS=("7.4" "8.0" "8.1")
 PHP_TYPES=("cli" "fpm" "cli-node" "fpm-node")
-APCU_VERSION="5.1.19"
+APCU_VERSION="5.1.20"
 
 # Detect os
 UNAME_OUT="$(uname -s)"

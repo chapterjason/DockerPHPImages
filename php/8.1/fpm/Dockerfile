@@ -1,4 +1,4 @@
-FROM php:8.0-cli-alpine
+FROM php:8.1-fpm-alpine
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -69,10 +69,3 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
-
-# Add NodeJS
-RUN apk add --no-cache \
-        nodejs \
-        yarn \
-        npm \
-    ;
