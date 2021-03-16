@@ -11,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        php: ["7.4", "8.0", "8.1"]
+        php: ["7.4", "8.0"]
+        # php: ["7.4", "8.0", "8.1"] # Wait for publish of the docker-image
         type: [cli, fpm, cli-node, fpm-node]
 
     steps:
