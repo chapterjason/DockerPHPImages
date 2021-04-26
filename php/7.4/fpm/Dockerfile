@@ -37,6 +37,7 @@ RUN set -eux; \
 	    apcu-5.1.20 \
 	    redis \
 	    timezonedb \
+	    xdebug \
 	; \
 	pecl clear-cache; \
 	docker-php-ext-enable \
