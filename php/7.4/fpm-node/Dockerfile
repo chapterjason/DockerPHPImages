@@ -1,4 +1,6 @@
-FROM php:7.4-fpm-alpine
+ARG IMAGE=php:7.4-fpm-alpine
+
+FROM ${IMAGE}
 
 # persistent / runtime deps
 RUN apk add --no-cache \

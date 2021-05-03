@@ -1,4 +1,6 @@
-FROM php:8.0-cli-alpine
+ARG IMAGE=php:8.0-cli-alpine
+
+FROM ${IMAGE}
 
 # persistent / runtime deps
 RUN apk add --no-cache \
