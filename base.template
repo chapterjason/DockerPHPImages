@@ -1,6 +1,4 @@
-ARG IMAGE={{ IMAGE }}
-
-FROM ${IMAGE}
+FROM {{ IMAGE }}
 
 # persistent / runtime deps
 RUN apk add --no-cache \
