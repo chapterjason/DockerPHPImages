@@ -1,0 +1,21 @@
+name: Build Docker Images
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        php: ["7.4", "8.0", "8.0.3", "8.1"]
+        type: [cli, fpm, cli-node, fpm-node]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Docker images
+      uses: docker/build-push-action@v2.2.2
+      with:
+        context: php/${{ matrix.php }}/${{ matrix.type }}
+        tags: chapterjason/php:${{ matrix.php }}-${{ matrix.type }}-alpine
