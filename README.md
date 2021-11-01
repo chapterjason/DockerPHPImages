@@ -11,6 +11,14 @@ docker push chapterjason/php:tagname
 
 Tagnames:
 
+- 8.1-fpm-alpine
+- 8.1-cli-alpine
+- 8.1-cli-node-alpine
+- 8.1-fpm-node-alpine
+- 8.0.3-fpm-alpine
+- 8.0.3-cli-alpine
+- 8.0.3-cli-node-alpine
+- 8.0.3-fpm-node-alpine
 - 8.0-fpm-alpine
 - 8.0-cli-alpine
 - 8.0-cli-node-alpine

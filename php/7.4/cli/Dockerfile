@@ -37,7 +37,7 @@ RUN set -eux; \
 	    pdo_pgsql \
 	; \
 	pecl install \
-	    apcu-5.1.21 \
+	    apcu-5.1.20 \
 	    redis \
 	    timezonedb \
 	    xdebug \
