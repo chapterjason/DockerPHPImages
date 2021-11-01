@@ -1,5 +1,8 @@
-ARG PHP_IMAGE_VERSION=8.0-cli-alpine
+ARG PHP_IMAGE_VERSION=8.1-cli-alpine
 ARG PHP_IMAGE=php:${PHP_IMAGE_VERSION}
+ARG ROADRUNNER_IMAGE_VERSION=2.5.3
+ARG ROADRUNNER_IMAGE=spiralscout/roadrunner:${ROADRUNNER_IMAGE_VERSION}
+FROM ${ROADRUNNER_IMAGE} as rr
 FROM ${PHP_IMAGE}
 
 # persistent / runtime deps
@@ -59,3 +62,8 @@ RUN set -eux; \
 	apk del .build-deps;
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copy RoadRunner
+COPY --from=rr /usr/bin/rr /usr/bin/rr
+
+# Copy RoadRunner config
+COPY --from=rr /etc/rr.yaml /etc/rr.yaml

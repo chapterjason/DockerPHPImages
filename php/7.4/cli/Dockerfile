@@ -1,4 +1,6 @@
-FROM php:7.4-cli-alpine
+ARG PHP_IMAGE_VERSION=7.4-cli-alpine
+ARG PHP_IMAGE=php:${PHP_IMAGE_VERSION}
+FROM ${PHP_IMAGE}
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -28,6 +30,7 @@ RUN set -eux; \
 	docker-php-ext-install -j$(nproc) \
 	    intl \
 	    zip \
+	    sockets \
 	    gd \
 	    pdo \
 	    pdo_mysql \
@@ -55,9 +58,4 @@ RUN set -eux; \
 	apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
 	apk del .build-deps;
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Allow composer for all
-# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

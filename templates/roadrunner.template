@@ -1,0 +1,5 @@
+# Copy RoadRunner
+COPY --from=rr /usr/bin/rr /usr/bin/rr
+
+# Copy RoadRunner config
+COPY --from=rr /etc/rr.yaml /etc/rr.yaml

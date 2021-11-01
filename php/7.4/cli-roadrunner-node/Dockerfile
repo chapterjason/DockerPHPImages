@@ -1,4 +1,9 @@
-FROM {{ IMAGE }}
+ARG PHP_IMAGE_VERSION=7.4-cli-alpine
+ARG PHP_IMAGE=php:${PHP_IMAGE_VERSION}
+ARG ROADRUNNER_IMAGE_VERSION=2.5.3
+ARG ROADRUNNER_IMAGE=spiralscout/roadrunner:${ROADRUNNER_IMAGE_VERSION}
+FROM ${ROADRUNNER_IMAGE} as rr
+FROM ${PHP_IMAGE}
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -28,13 +33,14 @@ RUN set -eux; \
 	docker-php-ext-install -j$(nproc) \
 	    intl \
 	    zip \
+	    sockets \
 	    gd \
 	    pdo \
 	    pdo_mysql \
 	    pdo_pgsql \
 	; \
 	pecl install \
-	    apcu-{{ APCU }} \
+	    apcu-5.1.20 \
 	    redis \
 	    timezonedb \
 	    xdebug \
@@ -55,9 +61,16 @@ RUN set -eux; \
 	apk add --no-cache --virtual .phpexts-rundeps $runDeps; \
 	apk del .build-deps;
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Allow composer for all
-# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
+# Add NodeJS
+RUN apk add --no-cache \
+        nodejs \
+        yarn \
+        npm \
+    ;
+# Copy RoadRunner
+COPY --from=rr /usr/bin/rr /usr/bin/rr
+
+# Copy RoadRunner config
+COPY --from=rr /etc/rr.yaml /etc/rr.yaml
