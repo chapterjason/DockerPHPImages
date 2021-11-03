@@ -2,7 +2,7 @@
 
 # Config
 PHP_VERSIONS=("7.4" "8.0" "8.0.3" "8.1")
-PHP_TYPES=("cli" "fpm" "cli-node" "fpm-node" "cli-roadrunner" "cli-roadrunner-node")
+PHP_TYPES=("cli" "fpm" "cli-node" "fpm-node")
 ROADRUNNER_IMAGE_VERSION="2.5.3"
 APCU_VERSION="5.1.20"
 
@@ -25,10 +25,6 @@ for PHP_VERSION in "${PHP_VERSIONS[@]}"; do
       PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION//"-node"/}
     fi
 
-    if [[ "$PHP_TYPE" =~ "roadrunner" ]]; then
-      PHP_IMAGE_VERSION=${PHP_IMAGE_VERSION//"-roadrunner"/}
-    fi
-
     FILE="php/$PHP_VERSION/$PHP_TYPE/Dockerfile"
 
     # Create directory
@@ -41,17 +37,9 @@ for PHP_VERSION in "${PHP_VERSIONS[@]}"; do
     ##########
     cat "templates/args/php.args.template" >> "$FILE"
 
-    if [[ "$PHP_TYPE" =~ "roadrunner" ]]; then
-      cat "templates/args/roadrunner.args.template" >> "$FILE"
-    fi
-
     ##########
     ##### Pre in reverse order
     ##########
-    if [[ "$PHP_TYPE" =~ "roadrunner" ]]; then
-      cat "templates/pre/roadrunner.pre.template" >> "$FILE"
-    fi
-
     cat "templates/pre/php.pre.template" >> "$FILE"
 
     ##########
@@ -64,28 +52,18 @@ for PHP_VERSION in "${PHP_VERSIONS[@]}"; do
       cat templates/node.template >> "$FILE"
     fi
 
-    if [[ "$PHP_TYPE" =~ "roadrunner" ]]; then
-      cat templates/roadrunner.template >> "$FILE"
-    fi
-
     if [[ $MACHINE == "Mac" ]]; then
       # Replace image placeholder
       sed -i '' "s/{{ PHP_IMAGE_VERSION }}/$PHP_IMAGE_VERSION/" "$FILE"
 
       # Replace apcu placeholder
       sed -i '' "s/{{ APCU }}/$APCU_VERSION/" "$FILE"
-
-      # Replace roadrunner placeholder
-      sed -i '' "s/{{ ROADRUNNER_IMAGE_VERSION }}/$ROADRUNNER_IMAGE_VERSION/" "$FILE"
     else
       # Replace image placeholder
       sed -i "s/{{ PHP_IMAGE_VERSION }}/$PHP_IMAGE_VERSION/" "$FILE"
 
       # Replace apcu placeholder
       sed -i "s/{{ APCU }}/$APCU_VERSION/" "$FILE"
-
-            # Replace roadrunner placeholder
-      sed -i "s/{{ ROADRUNNER_IMAGE_VERSION }}/$ROADRUNNER_IMAGE_VERSION/" "$FILE"
     fi
   done
 done
