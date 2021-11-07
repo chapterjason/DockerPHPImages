@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         php: ["7.4", "8.0", "8.0.3"]
-        type: [ cli, fpm, cli-node, fpm-node, cli-roadrunner, cli-roadrunner-node ]
+        type: [ cli, fpm, cli-node, fpm-node ]
 
     steps:
     - uses: actions/checkout@v2
