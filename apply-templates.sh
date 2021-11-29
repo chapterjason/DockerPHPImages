@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Config
-PHP_VERSIONS=("7.4" "8.0" "8.0.3" "8.1")
+PHP_VERSIONS=("8.0" "8.0.3" "8.1")
 PHP_TYPES=("cli" "fpm" "cli-node" "fpm-node")
 APCU_VERSION="5.1.20"
 
