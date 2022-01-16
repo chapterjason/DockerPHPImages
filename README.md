@@ -1,4 +1,8 @@
 
+# Deprecated
+
+This repository is deprecated, in favor of: [docker-images](https://github.com/chapterjason/docker-images)
+
 # DockerPHPImages
 
 These are the default php images with some extras.
